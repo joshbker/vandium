@@ -1,4 +1,4 @@
-package dev.devous.vandium.itemserializer;
+package dev.devous.vandium.item.serializer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
