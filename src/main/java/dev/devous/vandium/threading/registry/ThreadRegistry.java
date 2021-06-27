@@ -13,7 +13,7 @@ public class ThreadRegistry {
     }
 
     public Thread register(String name) {
-        Thread thread = new Thread(getUniqueId(), name);
+        Thread thread = new Thread(UUID.randomUUID(), name);
         threads.put(thread.getUniqueId(), thread);
         return thread;
     }
@@ -51,16 +51,6 @@ public class ThreadRegistry {
         }
 
         return (Thread[]) threadList.toArray();
-    }
-
-    private UUID getUniqueId() {
-        UUID uniqueId = UUID.randomUUID();
-
-        while (threads.containsKey(uniqueId)) {
-            uniqueId = UUID.randomUUID();
-        }
-
-        return uniqueId;
     }
 
 }
