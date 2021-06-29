@@ -7,7 +7,7 @@ import org.bukkit.scoreboard.Team;
 public class ScoreboardEntry {
 
     private final Scoreboard scoreboard;
-    private final String text, identifier;
+    private String text, identifier;
     private Team team;
 
     public ScoreboardEntry(Scoreboard scoreboard, String text, int position) {
@@ -77,6 +77,14 @@ public class ScoreboardEntry {
 
         Score score = scoreboard.getObjective().getScore(identifier);
         score.setScore(position);
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public void remove() {

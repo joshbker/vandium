@@ -130,10 +130,12 @@ public class ItemBuilder implements Cloneable {
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
         profile.getProperties().put("textures", new Property("textures", texture));
         Field field;
+
         try {
             field = meta.getClass().getDeclaredField("profile");
             field.setAccessible(true);
             field.set(meta, profile);
+            field.setAccessible(false);
         } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
         }

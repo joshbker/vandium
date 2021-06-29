@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static dev.devous.vandium.color.Color.color;
+
 public class Scoreboard {
 
     private final List<ScoreboardEntry> entries = new ArrayList<>();
@@ -41,7 +43,7 @@ public class Scoreboard {
         if (scoreboard.getObjective("Vandium") == null) {
             Objective objective = scoreboard.registerNewObjective("Vandium", "dummy");
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-            objective.setDisplayName(registry.getAdapter().getTitle(Bukkit.getServer().getPlayer(uniqueId)));
+            objective.setDisplayName(color(registry.getAdapter().getTitle(Bukkit.getServer().getPlayer(uniqueId))));
 
             return objective;
         }
@@ -82,6 +84,10 @@ public class Scoreboard {
 
     private static String getRandomChatColor(int position) {
         return ChatColor.values()[position].toString();
+    }
+
+    public List<ScoreboardEntry> getEntries() {
+        return entries;
     }
 
     public void addEntry(ScoreboardEntry entry) {
