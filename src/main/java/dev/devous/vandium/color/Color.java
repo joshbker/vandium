@@ -7,6 +7,10 @@ import java.util.List;
 
 public class Color {
 
+    private Color() {
+
+    }
+
     public static String color(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }

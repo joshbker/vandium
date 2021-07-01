@@ -13,6 +13,10 @@ import java.util.Map;
 
 public class ActionBar {
 
+    private ActionBar() {
+
+    }
+
     private static final Map<Player, BukkitTask> PENDING_MESSAGES = new HashMap<>();
 
     /**

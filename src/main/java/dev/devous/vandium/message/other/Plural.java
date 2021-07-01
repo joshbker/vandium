@@ -2,6 +2,10 @@ package dev.devous.vandium.message.other;
 
 public class Plural {
 
+    private Plural() {
+
+    }
+
     /**
      * Make a word plural.
      *

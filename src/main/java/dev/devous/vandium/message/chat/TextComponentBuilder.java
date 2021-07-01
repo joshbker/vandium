@@ -12,14 +12,21 @@ public class TextComponentBuilder {
 
     private final TextComponent textComponent;
 
-
     /**
      * Constructor for new class instance.
      *
      * @param text the message in chat.
      */
-    public TextComponentBuilder(String text) {
-        this.textComponent = new TextComponent(color(text));
+    public TextComponentBuilder(String... text) {
+        this.textComponent = new TextComponent();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < text.length; i++) {
+            sb.append(text[i]);
+            if (i != text.length - 1) {
+                sb.append("\n");
+            }
+        }
+        this.textComponent.setText(color(sb.toString()));
     }
 
     /**
