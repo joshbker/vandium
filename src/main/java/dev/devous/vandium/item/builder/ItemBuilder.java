@@ -44,6 +44,11 @@ public class ItemBuilder implements Cloneable {
         meta = item.getItemMeta();
     }
 
+    public ItemBuilder material(Material material) {
+        item.setType(material);
+        return this;
+    }
+
     public ItemBuilder amount(int amount) {
         item.setAmount(amount);
         return this;
