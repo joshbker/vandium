@@ -1,16 +1,18 @@
-package dev.devous.vandium.scoreboard.event;
+package dev.devous.vandium.assemble.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class ScoreboardCreateEvent extends Event implements Cancellable {
+public class AssembleBoardCreateEvent extends Event implements Cancellable {
+
+    public static HandlerList handlerList = new HandlerList();
 
     private final Player player;
-    private boolean cancelled;
+    private boolean cancelled = false;
 
-    public ScoreboardCreateEvent(Player player) {
+    public AssembleBoardCreateEvent(Player player) {
         this.player = player;
     }
 
@@ -30,7 +32,11 @@ public class ScoreboardCreateEvent extends Event implements Cancellable {
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return handlerList;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlerList;
     }
 
 }
