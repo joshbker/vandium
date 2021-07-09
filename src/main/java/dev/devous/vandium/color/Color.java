@@ -1,9 +1,10 @@
 package dev.devous.vandium.color;
 
 import org.bukkit.ChatColor;
-
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Color {
 
@@ -20,21 +21,17 @@ public class Color {
     }
 
     public static List<String> colorList(List<String> messages) {
-        List<String> colored = new ArrayList<>();
-        for (String message : messages) {
-            colored.add(ChatColor.translateAlternateColorCodes('&', message));
-        }
-
-        return colored;
+        return colorizeList(messages);
     }
 
     public static List<String> colorList(String... messages) {
-        List<String> colored = new ArrayList<>();
-        for (String message : messages) {
-            colored.add(ChatColor.translateAlternateColorCodes('&', message));
-        }
+        return colorizeList(Arrays.asList(messages));
+    }
 
-        return colored;
+    private static List<String> colorizeList(Collection<String> messages) {
+        return messages.stream()
+                .map(Color::color)
+                .collect(Collectors.toList());
     }
 
 }

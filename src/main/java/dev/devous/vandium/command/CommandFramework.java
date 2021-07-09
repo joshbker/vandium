@@ -48,10 +48,10 @@ public class CommandFramework implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
 		return handleCommand(sender, cmd, label, args);
 	}
-	
+
 	/**
 	 * Handles commands. Used in the onCommand method in your JavaPlugin class
-	 * 
+	 *
 	 * @param sender The {@link CommandSender} parsed from
 	 *            onCommand
 	 * @param cmd The {@link org.bukkit.command.Command} parsed from onCommand
@@ -101,40 +101,41 @@ public class CommandFramework implements CommandExecutor {
 	/**
 	 * Registers all command and completer methods inside of the object. Similar
 	 * to Bukkit's registerEvents method.
-	 * 
+	 *
 	 * @param obj The object to register the commands of
 	 */
 	public void registerCommands(Object obj) {
-		for (Method m : obj.getClass().getMethods()) {
-			if (m.getAnnotation(Command.class) != null) {
-				Command command = m.getAnnotation(Command.class);
-
-				if (m.getParameterTypes().length > 1 || m.getParameterTypes()[0] != CommandArgs.class) {
-					System.out.println("Unable to register command " + m.getName() + ". Unexpected method arguments");
+		for (Method method : obj.getClass().getMethods()) {
+			Command command = method.getAnnotation(Command.class);
+			if (command != null) {
+				if (method.getParameterTypes().length > 1 || method.getParameterTypes()[0] != CommandArgs.class) {
+					System.out.println("Unable to register command " + method.getName() + ". Unexpected method arguments");
 					continue;
 				}
 
-				registerCommand(command, command.name(), m, obj);
+				registerCommand(command, command.name(), method, obj);
 
 				for (String alias : command.aliases())
-					registerCommand(command, alias, m, obj);
+					registerCommand(command, alias, method, obj);
 
-			} else if (m.getAnnotation(Completer.class) != null) {
-				Completer comp = m.getAnnotation(Completer.class);
-				if (m.getParameterTypes().length != 1 || m.getParameterTypes()[0] != CommandArgs.class) {
-					System.out.println("Unable to register tab completer " + m.getName() + ". Unexpected method arguments");
+			}
+
+			Completer completer = method.getAnnotation(Completer.class);
+			if (completer != null) {
+				if (method.getParameterTypes().length != 1 || method.getParameterTypes()[0] != CommandArgs.class) {
+					System.out.println("Unable to register tab completer " + method.getName() + ". Unexpected method arguments");
 					continue;
 				}
 
-				if (m.getReturnType() != List.class) {
-					System.out.println("Unable to register tab completer " + m.getName() + ". Unexpected return type");
+				if (method.getReturnType() != List.class) {
+					System.out.println("Unable to register tab completer " + method.getName() + ". Unexpected return type");
 					continue;
 				}
 
-				registerCompleter(comp.name(), m, obj);
+				registerCompleter(completer.name(), method, obj);
 
-				for (String alias : comp.aliases())
-					registerCompleter(alias, m, obj);
+				for (String alias : completer.aliases())
+					registerCompleter(alias, method, obj);
 			}
 		}
 	}
@@ -215,5 +216,5 @@ public class CommandFramework implements CommandExecutor {
 	private void defaultCommand(CommandArgs args) {
 		args.getSender().sendMessage(ChatColor.RED + args.getLabel() + " isn't handled!");
 	}
-	
+
 }
