@@ -19,9 +19,7 @@ public class CommandArgs {
 
 		for (int x = 0; x < subCommand; x++)
 			builder.append(".").append(args[x]);
-
-
-		String cmdLabel = builder.toString();
+		
 		this.sender = sender;
 		this.command = command;
 		this.args = modArgs;
@@ -29,7 +27,7 @@ public class CommandArgs {
 
 	/**
 	 * Gets the command sender
-	 * 
+	 *
 	 * @return
 	 */
 	public CommandSender getSender() {
@@ -38,7 +36,7 @@ public class CommandArgs {
 
 	/**
 	 * Gets the original command object
-	 * 
+	 *
 	 * @return
 	 */
 	public org.bukkit.command.Command getCommand() {
@@ -47,7 +45,7 @@ public class CommandArgs {
 
 	/**
 	 * Gets the label including sub command labels of this command
-	 * 
+	 *
 	 * @return Something like 'test.subcommand'
 	 */
 	public String getLabel() {
@@ -58,13 +56,13 @@ public class CommandArgs {
 	 * Gets all the arguments after the command's label. ie. if the command
 	 * label was test.subcommand and the arguments were subcommand foo foo, it
 	 * would only return 'foo foo' because 'subcommand' is part of the command
-	 * 
+	 *
 	 * @return
 	 */
 	public String[] getArgs() {
 		return args;
 	}
-	
+
 	/**
 	 * Gets the argument at the specified index
 	 * @param index The index to get
@@ -81,7 +79,7 @@ public class CommandArgs {
 	public int length() {
 		return args.length;
 	}
-	
+
 	public boolean isPlayer() {
 		return sender instanceof Player;
 	}
