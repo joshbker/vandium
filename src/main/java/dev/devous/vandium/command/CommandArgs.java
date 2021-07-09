@@ -19,7 +19,7 @@ public class CommandArgs {
 
 		for (int x = 0; x < subCommand; x++)
 			builder.append(".").append(args[x]);
-		
+
 		this.sender = sender;
 		this.command = command;
 		this.args = modArgs;
@@ -85,10 +85,8 @@ public class CommandArgs {
 	}
 
 	public Player getPlayer() {
-		if (sender instanceof Player)
-			return (Player) sender;
-
-		return null;
+		return sender instanceof Player ?
+				(Player) sender : null;
 	}
 
 }
