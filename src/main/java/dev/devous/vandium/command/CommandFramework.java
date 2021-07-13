@@ -102,10 +102,10 @@ public class CommandFramework implements CommandExecutor {
 	 * Registers all command and completer methods inside of the object. Similar
 	 * to Bukkit's registerEvents method.
 	 *
-	 * @param obj The object to register the commands of
+	 * @param cmd The object to register the commands of
 	 */
-	public void registerCommands(Object obj) {
-		for (Method method : obj.getClass().getMethods()) {
+	public void registerCommands(ICommand cmd) {
+		for (Method method : cmd.getClass().getMethods()) {
 			Command command = method.getAnnotation(Command.class);
 			if (command != null) {
 				if (method.getParameterTypes().length > 1 || method.getParameterTypes()[0] != CommandArgs.class) {
@@ -113,10 +113,10 @@ public class CommandFramework implements CommandExecutor {
 					continue;
 				}
 
-				registerCommand(command, command.name(), method, obj);
+				registerCommand(command, command.name(), method, cmd);
 
 				for (String alias : command.aliases())
-					registerCommand(command, alias, method, obj);
+					registerCommand(command, alias, method, cmd);
 
 			}
 
@@ -132,10 +132,10 @@ public class CommandFramework implements CommandExecutor {
 					continue;
 				}
 
-				registerCompleter(completer.name(), method, obj);
+				registerCompleter(completer.name(), method, cmd);
 
 				for (String alias : completer.aliases())
-					registerCompleter(alias, method, obj);
+					registerCompleter(alias, method, cmd);
 			}
 		}
 	}
